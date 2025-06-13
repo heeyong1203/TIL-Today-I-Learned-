@@ -1,0 +1,7 @@
+package com.sinse.shopadmin.product.view;
+
+import javax.swing.JProgressBar;
+
+public class MyBar extends JProgressBar{
+
+}

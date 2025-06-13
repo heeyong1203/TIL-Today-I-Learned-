@@ -1,0 +1,16 @@
+package com.sinse.shopadmin.product.view;
+
+public class Test {
+	public static void main(String[] args) {
+		String path = "C://test/babo/mario.test.jpg";
+		int index = path.lastIndexOf(".");
+		System.out.println(index);
+		int lastIndex = path.lastIndexOf(path);
+		System.out.println(lastIndex);
+		
+		//1) 가장 마지막에 있는 .의 위치를 알아내자. lastIndexOf()
+		
+		//2) 가장 마지막 .의 위치 바로 다음 위치~마지막 위치까지 index번호를 알아내 추출한다.
+		// 전체 문자열 중 일부 문자열 substring()
+	}
+}

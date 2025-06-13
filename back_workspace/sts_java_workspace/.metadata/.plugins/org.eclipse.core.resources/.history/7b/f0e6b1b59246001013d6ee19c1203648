@@ -1,0 +1,74 @@
+package chat.server;
+
+import java.awt.BorderLayout;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class EchoGUIServer extends JFrame implements Runnable{ // 나는 JFrame이자 Run메서드를 갖고 있음!
+	JPanel p_north;
+	JTextField t_port;
+	JButton bt;
+	JTextArea area;
+	JScrollPane scroll;
+	ServerSocket server; // 대화용 소켓이 아닌, 접속자를 감지하고 접속이 감지되면 대화용 소켓을 반환!!! (히드라한테 맞은 옵저버)
+	Thread thread; // runnable != thread... thread를 구현하기 위해서는 Thread를 보유해야 함 
+	// 그럼 runnable왜 함? run 메서드 가질라고
+
+	
+	public EchoGUIServer() {
+		p_north = new JPanel();
+		t_port = new JTextField("8888", 8);
+		bt = new JButton("서버 가동");
+		area = new JTextArea();
+		scroll = new JScrollPane(area);
+		
+		p_north.add(t_port);
+		p_north.add(bt);
+		add(p_north, BorderLayout.NORTH);
+		add(scroll);
+		
+		// 가동 버튼에 리스너 연결
+		bt.addActionListener(e->{
+			thread = new Thread(EchoGUIServer.this); // 익명내부클래스에 있으므로, this는 익명 클래스를 의미 그러기에 EchoGUIServer.this로 정확히 표기!
+			thread.start(); // start가 끝날때까지 main 실행부가 기다리는 것이 아님... start를 통해 run이 실행되는 것은 JVM을 통해 OS(시스템)한테 요청하는 것
+		});
+	
+		setBounds(100, 100, 300,400);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	public void run() {
+		startServer();
+	}
+	
+	public void startServer() {
+		try {
+			server = new ServerSocket(Integer.parseInt(t_port.getText()));
+			area.append("서버 객체 생성 및 접속 청취중... \n"); // \n 이후 text를 줄바꿈하기 위해... ← your base is under attack! 
+			
+			server.accept(); // 접속자가 있을 때까지 무한대기에 빠짐... ; 
+			area.append("접속자 발견\n"); // 발동 하면 append에 넣어놓은 your base is under attack 호출됨...
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 우리가 실행부라고 알고 있었던 존재가 사실 메인 쓰레드라 불리는 프로그램 운영 쓰레드임... (이벤트 감지, GUI 구성, 관리...)
+	// 아이폰, 안드로이드 폰... 기타 프로그램에서 프로그램을 운영하는 메인쓰레드에게 금기시하는 경우가 있음 // 집행관이 고장난거임! 겜 어케함
+	// 1) 무한 루프, 2) 대기 상태 accept(), read()
+	// 메인쓰레드를 대기상태에 빠뜨리면 이벤트 감지, GUI 그래픽 처리 불가... 모든 게 다 멈춤.. (스마트폰의 경우 메인쓰레드를 무한루프 혹은 대기상태로 빠뜨리는 시도 자체가 에러로 출력됨)
+	public static void main(String[] args) {
+		new EchoGUIServer();
+	}
+	
+}

@@ -1,0 +1,17 @@
+package com.sinse.shopadmin.product.repository;
+
+public class Duck {
+	// Duck 하나만 생성
+	String name="도널드";
+	private static Duck d;
+	
+	// 생성자를 막아버린다
+	private Duck() {
+		
+	}
+
+	public static Duck getD() {
+		return d;
+	}
+	
+}

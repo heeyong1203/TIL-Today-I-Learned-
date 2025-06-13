@@ -1,0 +1,171 @@
+package table;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableModel;
+
+public class MemberRegist extends JFrame implements ActionListener, WindowListener{ // extends JFrame을 하므로써 현재 this는 JFrame
+	// 서쪽 영역
+	JPanel p_west;
+	JTextField t_id; // 아이디
+	JTextField t_name; // 성명
+	JTextField t_tel; // 연락처
+	JButton bt;
+	
+	// 센터 영역
+	JPanel p_center;
+	JTable table;
+	JScrollPane scroll;
+	
+	TableModel model; // JTable은 껍데기에 지나지 않기 때문에, 실제 보여질 데이터는 모델이 결정함
+	int index=0; // 몇 번째 층에 회원을 넣을지 결정짓는 인덱스
+	
+	Connection con=null; // 접속은 윈도우창 생성 시 한 번 시도되며, 창 닫을 때 접속해제
+	
+	public MemberRegist() {
+		// 생성
+		p_west=new JPanel();
+		t_id=new JTextField();
+		t_name=new JTextField();
+		t_tel=new JTextField();
+		bt=new JButton("가입");
+		
+		p_center=new JPanel();
+		// 생성자에 이차원배열의 대입 방식은 불편... 테이블 생성시점에 언제나 데이터가 이미 있어야 한다는 전제 조건이 깔려있기 때문
+		// 생성자의 인수에 이 테이블에 보여줘야 할 데이터 또는 데이터처리 객체
+		// JTable은 MVC패턴을 어느 정도 반영한 컴포넌트임.. (완벽하진 않음 ; 모델+컨트롤러)
+//		model=new CarModel();
+		model=new MyModel();
+		table=new JTable(model);
+		scroll=new JScrollPane(table);
+		
+		// style 적용
+		p_west.setBackground(Color.ORANGE);
+		p_west.setPreferredSize(new Dimension(150,500));
+		
+		Dimension d = new Dimension(146, 35); // 크기 재사용 시 사용하는 Dimension
+		t_id.setPreferredSize(d);
+		t_name.setPreferredSize(d);
+		t_tel.setPreferredSize(d);
+		
+		p_center.setBackground(Color.GREEN);
+		scroll.setPreferredSize(new Dimension(445,490));
+		
+		// 조립
+		p_west.add(t_id);
+		p_west.add(t_name);
+		p_west.add(t_tel);
+		p_west.add(bt);
+		add(p_west, BorderLayout.WEST); // 프레임의 서쪽에 부착
+		
+		p_center.add(scroll);
+		add(p_center);
+		
+		bt.addActionListener(this);
+		
+		// 윈도우창과 리스너와의 연결
+		this.addWindowListener(this);
+		
+		setBounds(100, 100, 610, 500);
+		setVisible(true);
+		
+		// 디자인 설계 이후 DB 접속!!
+		connect();
+	}
+	
+	public void connect() {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url="jdbc:mysql://localhost:3306/dev";
+			String id="java";
+			String pass="1234";
+			
+			con=DriverManager.getConnection(url, id, pass);
+			if(con!=null) {
+				this.setTitle("접속 성공");
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// 회원 한 명 등록 (model이 보유한 이차원 배열의 한 공간을 들어가게 할 예정, 즉 원하는 층에 들어갈 예정)
+	public void regist() {
+		// 회원 한 명을 일차원 배열에 담아서, 그 배열을 model이 보유한 2차원 배열에 가장 최근의 위치에 밀어 넣자
+//		String[] member = {t_id.getText(), t_name.getText(), t_tel.getText()};
+//		((MyModel)model).rows[index++]=member; // ++index이면 먼저 1이 증가되어 0번째가 비어버림
+//		table.updateUI(); // 테이블 새로 고침
+		String sql="insert into member4(id, name, tel)";
+		sql+=" values('"+t_id.getText()+"','"+t_name.getText()+"','"+t_tel.getText()+"')";
+		
+		System.out.println(sql); // 콘솔에 출력된 SQL문을 실제 DB에서 실행했을 때 성공해야 함
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		regist();
+	}
+	
+	public static void main(String[] args) {
+		new MemberRegist();
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		System.out.println("windowOpened()");
+	}
+
+	@Override // 윈도우 창을 닫는 순간 호출되는 메서드이므로, 무언가 연결되어 있던 자원을 해제하는 용도로 적합
+	public void windowClosing(WindowEvent e) {
+		System.out.println("windowClosing()");
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		System.out.println("windowClosed()");		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		System.out.println("windowIconified()");		
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		System.out.println("windowDeiconified()");		
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		System.out.println("windowActivated()");		
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		System.out.println("windowDeactivated()");		
+		
+	}
+}

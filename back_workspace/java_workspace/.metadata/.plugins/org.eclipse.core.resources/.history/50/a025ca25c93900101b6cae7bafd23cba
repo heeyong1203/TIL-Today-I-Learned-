@@ -1,0 +1,9 @@
+package db;
+
+/* select문 수행하기 */
+public class SelectTest {
+	
+	public static void main(String[] args) {
+		
+	}
+}

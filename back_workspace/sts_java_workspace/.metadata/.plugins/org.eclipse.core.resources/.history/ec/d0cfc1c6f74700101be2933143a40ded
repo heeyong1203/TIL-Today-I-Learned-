@@ -1,0 +1,33 @@
+package com.sinse.shopadmin.product.repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.sinse.shopadmin.global.util.DBManager;
+import com.sinse.shopadmin.product.model.ProductSize;
+
+public class ProductSizeDAO {
+	DBManager dbManager = DBManager.getInstance();
+	
+	public int insert(ProductSize productSize) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		StringBuffer sql = new StringBuffer();
+		int result=0;
+		
+		conn = dbManager.getConnection();
+		sql.append("insert into product_size(product_id, size_id) values(?, ?)");
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, productSize.getProduct().getProduct_id()); // 바인드 변수 지정
+			pstmt.setInt(2, productSize.getSize().getSize_id()); // 바인드 변수 지정
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbManager.release(pstmt);
+		}
+		return result;
+	}
+}

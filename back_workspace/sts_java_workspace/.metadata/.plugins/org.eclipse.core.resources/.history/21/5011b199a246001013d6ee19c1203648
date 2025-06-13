@@ -1,0 +1,20 @@
+package com.sinse.wms;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
+
+import com.sinse.wms.global.config.Config;
+import com.sinse.wms.global.view.Page;
+import com.sinse.wms.inbound.view.InboundStatus;
+
+public class AppMainRefactoring extends JFrame{
+	
+	public static void main(String[] args) {
+		new AppMainRefactoring();
+	}
+}

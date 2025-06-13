@@ -1,0 +1,36 @@
+package com.sinse.wms;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
+
+public class AppMain extends JFrame{
+	
+		
+	public AppMain() {
+		
+		
+		// 페이지 확인
+		// showPage(new Page(this));
+		setBackground(new Color(227, 227, 227));
+		setLayout(new BorderLayout());
+		
+		setSize(1440, 960);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE); // db 연동 시 해제
+	}
+	
+	public void showPage(JPanel panel){
+		p_center.add(panel);
+	}
+	
+	
+	public static void main(String[] args) {
+		new AppMain();
+	}
+}

@@ -1,0 +1,21 @@
+package com.sinse.shopadmin.product.repository;
+
+public class UseDuck {
+	// Duck 무한 생성
+	
+	public static void main(String[] args) {
+		Duck d = Duck.getD();
+		
+		System.out.println(d);
+		
+		/*
+		System.out.println(new Duck());
+		System.out.println(new Duck());
+		System.out.println(new Duck());
+		System.out.println(new Duck());
+		System.out.println(new Duck());
+		System.out.println(new Duck());
+		System.out.println(new Duck());
+		*/
+	}
+}

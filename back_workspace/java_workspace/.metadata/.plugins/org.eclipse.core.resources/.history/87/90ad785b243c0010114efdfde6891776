@@ -1,0 +1,29 @@
+package shop;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/* 화면을 4개 보유한 쇼핑몰 애플리케이션의 화면 전환 처리 방법 */
+public class ShopMain extends JFrame{
+	JPanel p_north; // 북쪽 패널
+	JButton bt_home;
+	JButton bt_product;
+	JButton bt_mypage;
+	JButton bt_cs;
+
+	JPanel p_center; // 프로그램 가동과 동시에 이 패널에는 앞으로 사용하게 될 페이지들을 미리 부착하게 될 예정
+	
+	public ShopMain() {
+		setSize(800 ,650);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null); // 무엇을 중심으로 위치할 것인가? null 값을 주면 중앙에 생성됨
+
+	}
+
+		
+	public static void main(String[] args) {
+
+	}
+}

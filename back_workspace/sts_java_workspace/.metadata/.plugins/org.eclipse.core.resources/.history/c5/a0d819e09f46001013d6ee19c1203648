@@ -1,0 +1,22 @@
+package com.sinse.wms.inbound.view;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+
+import com.sinse.wms.AppMain;
+
+public class InboundStatus extends JPanel {
+	public InboundStatus(AppMain appMain) {
+		JPanel p_center = appMain.getP_center();
+		p_center.setLayout(null);
+		p_center.add(this);
+		
+		setBackground(Color.WHITE);
+		setBounds(45, 30, 900, 800);
+		setVisible(true);
+	}
+	
+	
+
+}

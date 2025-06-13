@@ -1,0 +1,97 @@
+package chat.server;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.Buffer;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+// 여러 Echo 기능이 추가되어 있는 서버 : 유니캐스팅! (서로 통신 안됨, 자기가 자기한테 보내는데 여러 명이 그걸 할 수 있다는 거임)
+public class GUIServer extends JFrame implements Runnable {
+	JPanel p_north;
+	JTextField t_port;
+	JButton bt;
+	JTextArea area;
+	JScrollPane scroll;
+	Thread thread; // 서버 가동 시, 메인쓰레드(GUI Thread)가 accept()에서 대기 상태에 빠지지 않게 하기 위해
+	ServerSocket server;
+	
+	BufferedReader buffr; // 듣기용 스트림
+	BufferedWriter buffw; // 말하기용 스트림
+	
+	public GUIServer() {
+		p_north = new JPanel();
+		t_port = new JTextField("9999", 8);
+		bt = new JButton("서버 가동");
+		area = new JTextArea();
+		scroll = new JScrollPane(area);
+		
+		area.setBackground(Color.YELLOW);
+		
+		p_north.add(t_port);
+		p_north.add(bt);
+		add(p_north, BorderLayout.NORTH);
+		add(scroll);
+		
+		bt.addActionListener(e->{
+			thread = new Thread(GUIServer.this); // runnable에 의해 run 메서드를 이미 보유하고 있으므로 익명 내부 클래스로 run 메서드로 오버라이딩할 필요 없음
+			thread.start(); // 메인쓰레드가 JVM에게 start하도록 요청... 메인쓰레드를 기다리지 않음 = 비동기 방식
+		});
+		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+	
+		setBounds(0, 100, 300,400);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	public void startServer() {
+		try {
+			// 감지 소켓
+			server = new ServerSocket(Integer.parseInt(t_port.getText()));
+			area.append("서버 생성 및 접속자 청취 중...\n");
+			
+			while(true) {
+				// 대화형 소켓
+				Socket socket = server.accept(); // Listen 될때까지 대기상태에 빠짐... 그래서 우리는 쓰레드로 처리하였음
+				String ip = socket.getInetAddress().getHostAddress();
+				area.append(ip+" 접속\n");
+				
+				// 접속자 1명당 대화용 쓰레드인 ServerThread 인스턴스를 만들어내면서 Socket을 선물로 주자
+				ServerThread st = new ServerThread(this, socket);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void run() {
+		startServer();
+	}
+	
+	public static void main(String[] args) {
+		new GUIServer();
+	}
+	
+}

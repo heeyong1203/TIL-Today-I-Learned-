@@ -1,0 +1,14 @@
+package com.sinse.wms.main.view;
+
+import java.awt.Color;
+
+import com.sinse.wms.AppMain2;
+import com.sinse.wms.global.view.Page;
+
+
+public class MainPage extends Page {
+	public MainPage(AppMain2 appMain) {
+		super(appMain);
+		setBackground(new Color(227, 227, 227));
+	}
+}

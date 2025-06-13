@@ -1,0 +1,59 @@
+package com.sinse.networkapp.echo.client;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class EchoClient extends JFrame{
+	JComboBox cb;
+	JTextField t_ip;
+	JButton bt_search;
+	
+	JPanel p_north;
+	JPanel p_center;
+	JLabel la_chat;
+	JTextField t_input;
+	
+	public EchoClient() {
+		cb = new JComboBox();
+		t_ip = new JTextField();
+		bt_search = new JButton("검색");
+		p_north = new JPanel();
+		p_center = new JPanel();
+		la_chat = new JLabel(); 
+		t_input= new JTextField();
+	
+		// 스타일
+		p_north.setPreferredSize(new Dimension(300, 30));
+		cb.setPreferredSize(new Dimension(45, 25));
+		t_ip.setPreferredSize(new Dimension(130, 25));
+		bt_search.setPreferredSize(new Dimension(70, 25));
+		p_center.setPreferredSize(new Dimension(300, 450));
+		la_chat.setPreferredSize(new Dimension(300, 400));
+		t_input.setPreferredSize(new Dimension(300, 50));
+		
+		// 조립
+		p_north.add(cb);
+		p_north.add(t_ip);
+		p_north.add(bt_search);
+		p_center.setLayout(new BorderLayout());
+		p_center.add(area_chat, BorderLayout.NORTH);
+		p_center.add(t_input);
+		add(p_north, BorderLayout.NORTH);
+		add(p_center);
+		
+		setSize(300,480);
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	public static void main(String[] args) {
+		new EchoClient();
+	}
+}

@@ -1,0 +1,27 @@
+package com.sinse.shopadmin.product.view;
+
+public class ExceptionTest2 {
+	public void test() {
+		try {
+			test2();
+		} catch (NumberFormatException e) {
+			System.out.println("Test2에서 숫자 이외 문자를 넣어 메서드가 실행되지 않습니다.");
+			e.printStackTrace();
+		}
+	}
+	
+	public void test2() throws NumberFormatException {
+		String s = "100k";
+		
+		try {
+			Integer.parseInt(s);
+		} catch (NumberFormatException e) {
+			System.out.println("숫자로 변경될 수 없는 문자가 있습니다.");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		new ExceptionTest2().test();
+	}
+}

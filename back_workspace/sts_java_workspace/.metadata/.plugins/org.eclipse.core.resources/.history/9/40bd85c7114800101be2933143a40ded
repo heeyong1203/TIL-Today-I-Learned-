@@ -1,0 +1,26 @@
+package com.sinse.wms;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import com.sinse.wms.global.view.Page;
+
+public class AppMain extends JFrame{
+	
+		
+	public AppMain() {
+		
+		
+		// 기본 레이아웃
+		new Page(this);
+		
+		setSize(1440, 960);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE); // db 연동 시 해제
+	}
+	
+	public static void main(String[] args) {
+		new AppMain();
+	}
+}

@@ -1,0 +1,5 @@
+package com.sinse.shop.global.exception;
+
+public class MemberException {
+
+}

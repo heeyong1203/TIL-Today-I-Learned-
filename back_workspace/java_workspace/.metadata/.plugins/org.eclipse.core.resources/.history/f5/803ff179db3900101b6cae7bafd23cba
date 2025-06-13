@@ -1,0 +1,31 @@
+package db;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+/* Emp 테이블에 있는 레코드를 모두 가져와서 Jtable에 출력해보기 */
+public class EmpLoad extends JFrame{
+	// Frame 너비 800
+	JTable table;
+	JScrollPane scroll;
+	
+	public EmpLoad() {
+		table=new JTable();
+		scroll=new JScrollPane(table);
+		
+		setLayout(new FlowLayout());
+		
+		add(scroll);
+		
+		setSize(800,600);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	public static void main(String[] args) {
+		new EmpLoad();
+	}
+}

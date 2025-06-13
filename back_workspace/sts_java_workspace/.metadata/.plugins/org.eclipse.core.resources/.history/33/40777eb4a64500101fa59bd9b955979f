@@ -1,0 +1,71 @@
+package com.sinse.shopadmin.product.repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sinse.shopadmin.global.util.DBManager;
+import com.sinse.shopadmin.product.model.Size;
+
+// size 테이블에 대한 CRUD 담당 객체
+public class SizeDAO {
+	DBManager dbManager = DBManager.getInstance();
+	
+	// create = insert, 한 건 넣기
+	public int insert(Size size) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("insert into size(size_name) values(?)");
+		
+		conn = dbManager.getConnection();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, size.getSize_name()); // 바인드 변수값 설정 → 매개변수를 설정하여 매개변수의 메서드 이용
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbManager.release(pstmt);
+		}
+		return result;
+	}
+	
+	// 모두 가져오기
+	public List selectAll() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		ArrayList list = new ArrayList(); // record가 없어도 0으로 넘길 수 있도록 미리 new 함
+		
+		conn = dbManager.getConnection();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select * from size");
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Size size = new Size(); // empty
+				size.setSize_id(rs.getInt("size_id"));
+				size.setSize_name(rs.getString("size_name"));
+				list.add(size);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbManager.release(pstmt, rs);
+		}
+		
+		return null;
+	}
+	
+}

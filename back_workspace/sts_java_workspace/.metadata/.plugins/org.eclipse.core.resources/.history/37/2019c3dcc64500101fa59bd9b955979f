@@ -1,0 +1,58 @@
+package com.sinse.networkapp.echo.client;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class EchoClient extends JFrame{
+	JComboBox cb;
+	JTextField t_ip;
+	JButton bt_search;
+	
+	JPanel p_wrapper;
+	JPanel p_container;
+	JPanel p_center;
+	JPanel p_south;
+	
+	public EchoClient() {
+		cb = new JComboBox();
+		t_ip = new JTextField("포트번호를 입력하세요");
+		bt_search = new JButton("검색");
+		p_wrapper = new JPanel();
+		p_container = new JPanel();
+		p_center = new JPanel();
+		p_south = new JPanel();
+	
+		// 스타일
+		cb.setPreferredSize(new Dimension(45, 25));
+		t_ip.setPreferredSize(new Dimension(130, 25));
+		bt_search.setPreferredSize(new Dimension(70, 25));
+		p_wrapper.setPreferredSize(new Dimension(300, 500));
+		p_center.setPreferredSize(new Dimension(300, 400));
+		p_south.setPreferredSize(new Dimension(300, 50));
+		
+		// 조립
+		p_wrapper.add(cb);
+		p_wrapper.add(t_ip);
+		p_wrapper.add(bt_search);
+		p_container.setLayout(new BorderLayout());
+		p_container.add(p_center);
+		p_container.add(p_south, BorderLayout.SOUTH);
+		p_wrapper.add(p_container);
+		add(p_wrapper);
+		
+		setSize(300,550);
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	public static void main(String[] args) {
+		new EchoClient();
+	}
+}

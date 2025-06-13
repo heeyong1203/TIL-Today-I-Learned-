@@ -1,0 +1,7 @@
+package com.sinse.shopadmin.product.repository;
+
+public class Duck {
+	// Duck 하나만 생성
+	String name="도널드";
+	
+}

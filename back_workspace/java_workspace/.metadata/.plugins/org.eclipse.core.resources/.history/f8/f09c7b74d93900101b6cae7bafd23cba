@@ -1,0 +1,28 @@
+package db;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JTable;
+
+public class TableTest extends JFrame{
+	// 프레임에 JTable 만들기 (w500 h550)
+	JTable table;
+	
+	public TableTest() {
+		table=new JTable(14, 7); // row, column
+		
+		// BorderLayout 영역에 붙이면, 테이블의 컬럼명이 안나옴... 
+		setLayout(new FlowLayout());
+		add(table);
+
+		setSize(500, 550);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	public static void main(String[] args) {
+		new TableTest();
+	}
+	
+}

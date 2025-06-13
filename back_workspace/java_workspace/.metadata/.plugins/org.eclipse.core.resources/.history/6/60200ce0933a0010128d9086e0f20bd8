@@ -1,0 +1,41 @@
+package table;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+public class MemberRegist extends JFrame{
+	// 서쪽 영역
+	JPanel p_west;
+	JTextField t_id; // 아이디
+	JTextField t_name; // 성명
+	JTextField t_tel; // 연락처
+	JButton bt;
+	
+	// 센터 영역
+	JPanel p_center;
+	JTable table;
+	JScrollPane scroll;
+	
+	
+	public MemberRegist() {
+		// 생성
+		p_west=new JPanel();
+		t_id=new JTextField();
+		t_name=new JTextField();
+		t_tel=new JTextField();
+		bt=new JButton("가입");
+		
+		p_center=new JPanel();
+		table=new JTable();
+		scroll=new JScrollPane();
+	}
+	
+	
+	public static void main(String[] args) {
+		new MemberRegist();
+	}
+}

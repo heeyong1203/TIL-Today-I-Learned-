@@ -1,0 +1,74 @@
+package com.sinse.wms;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Insets;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+
+import com.sinse.wms.global.config.Config;
+import com.sinse.wms.global.view.Page;
+
+public class AppMain extends JFrame{
+	JPanel p_wrapper;
+	JPanel p_west;
+	JPanel p_container;
+	JPanel p_global_navi;
+	JPanel p_local_navi;
+	JPanel p_north;
+	JPanel p_center;
+	
+	public AppMain() {
+		// 생성
+		p_wrapper = new JPanel();
+		p_west = new JPanel(); // wrapper에 붙임
+		p_container = new JPanel(); // wrapper에 붙임
+		p_global_navi = new JPanel(); // west에 붙임
+		p_local_navi = new JPanel(); // west에 붙임
+		p_north = new JPanel(); // container에 붙임
+		p_center = new JPanel(); // container에 붙임
+		
+		// 스타일 
+		p_wrapper.setBackground(new Color(227,227,227));
+		p_wrapper.setPreferredSize(new Dimension(Config.P_WRAPPER_WIDTH, Config.P_WRAPPER_HEIGHT)); // 1440, 960
+		p_west.setPreferredSize(new Dimension(Config.P_WEST_WIDTH, Config.P_WEST_HEIGHT)); // 450, 960
+		p_container.setPreferredSize(new Dimension(Config.P_CONTAINER_WIDTH, Config.P_CONTAINER_HEIGHT)); // 990, 960
+		p_global_navi.setBackground(new Color(38,124,181));
+		p_global_navi.setPreferredSize(new Dimension(Config.P_GLOBAL_NAVI_WIDTH, Config.P_GLOBAL_NAVI_HEIGHT)); // 100, 960
+		p_local_navi.setPreferredSize(new Dimension(Config.P_LOCAL_NAVI_WIDTH, Config.P_LOCAL_NAVI_HEIGHT)); // 300, 960
+		p_local_navi.setBorder(new MatteBorder(0,0, 0, 1, Color.BLACK));
+		p_north.setPreferredSize(new Dimension(Config.P_NORTH_WIDTH, Config.P_NORTH_HEIGHT)); // 990, 100
+		p_center.setPreferredSize(new Dimension(Config.P_CENTER_WIDTH, Config.P_CENTER_HEIGHT)); // 990, 860
+		
+		
+		// 조립
+		setLayout(new BorderLayout());
+		p_west.setLayout(new BorderLayout());
+		p_west.add(p_global_navi, BorderLayout.WEST);
+		p_west.add(p_local_navi);
+		p_wrapper.setLayout(new BorderLayout());
+		p_wrapper.add(p_west, BorderLayout.WEST);
+		p_container.setLayout(new BorderLayout());
+		p_container.add(p_north, BorderLayout.NORTH);
+		p_container.add(p_center);
+		p_wrapper.add(p_container);
+		add(p_wrapper);
+		
+		setSize(Config.P_WRAPPER_WIDTH, Config.P_WRAPPER_HEIGHT);
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	public static void main(String[] args) {
+		new AppMain();
+	}
+}

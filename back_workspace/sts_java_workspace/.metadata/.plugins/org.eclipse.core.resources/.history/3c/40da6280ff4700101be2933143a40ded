@@ -1,0 +1,35 @@
+package com.sinse.shopadmin.product.view;
+
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import com.sinse.shopadmin.AppMain;
+import com.sinse.shopadmin.global.config.Config;
+import com.sinse.shopadmin.global.view.Page;
+
+public class ProductListPage extends Page{
+	JTable table;
+	JScrollPane scroll;
+	
+	JPanel p_content;
+	JButton bt_regist;
+	
+	public ProductListPage(AppMain appMain) {
+		super(appMain);
+		
+		p_content = new JPanel();
+		p_content.setOpaque(false);
+		p_content.setPreferredSize(new Dimension(Config.ADMINMAIN_WIDTH-Config.SIDE_WIDTH, Config.ADMINMAIN_HEIGHT-Config.UTIL_HEIGHT));
+		table = new JTable();
+		scroll = new JScrollPane(table);
+		scroll.setPreferredSize(new Dimension(Config.ADMINMAIN_WIDTH-Config.SIDE_WIDTH-100, Config.ADMINMAIN_HEIGHT - Config.UTIL_HEIGHT-100));
+		
+		p_content.add(scroll);
+		add(p_content);
+	}
+
+}

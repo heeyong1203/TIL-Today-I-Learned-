@@ -1,0 +1,15 @@
+package com.sinse.shop.member.view;
+
+import java.awt.Color;
+
+import com.sinse.shop.AppMain;
+import com.sinse.shop.global.view.Page;
+
+public class MemberJoin extends Page{
+	
+	public MemberJoin(AppMain appMain) {
+		super(appMain);
+		
+		setBackground(Color.PINK);
+	}
+}

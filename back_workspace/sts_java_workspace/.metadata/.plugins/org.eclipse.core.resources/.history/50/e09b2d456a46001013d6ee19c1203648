@@ -1,0 +1,41 @@
+package com.sinse.shopadmin.product.view;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import javax.swing.JProgressBar;
+import javax.swing.border.TitledBorder;
+
+// API 자체적으로 지원해주는 진행 바는 너무 단순하므로, 우리가 원하는 스타일의 바로 커스텀해보자
+// Runnable 인터페이스란? run() 추상 메서드를 보유한 인터페이스 (※ runnable 자체가 쓰레드는 아님)
+public class MyBar extends JProgressBar implements Runnable{
+	FileInputStream fis; // 파일 대상 바이트 기반 입력스트림
+	FileOutputStream fos; // fis, fos 원본 파일 복사 붙여넣기를 위해 필요한 준비물!
+	
+	public MyBar(File origin, File destination) {
+		try {
+			fis = new FileInputStream(origin); // 원본 파일을 대상으로 스트림 생성
+			fos = new FileOutputStream(destination); // 파일이 복사될 대상에 대한 출력 스트림 생성(일단 틀 생성)
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		setPreferredSize(new Dimension(680, 50));
+		setForeground(new Color(255,212,212));
+		setBorder(new TitledBorder(""+".jpg ------> "+"23456789.jpg"));
+		setStringPainted(true);// 진행 바 중앙에 텍스트 띄우기
+		setFont(new Font("Verdana", Font.BOLD, 17));
+		this.setValue(30);
+	}
+	
+	@Override // 쓰레드 생성을 위해 .java 새로운 클래스를 만들기보다 runnable을 implements하는 방법도 있음
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+}

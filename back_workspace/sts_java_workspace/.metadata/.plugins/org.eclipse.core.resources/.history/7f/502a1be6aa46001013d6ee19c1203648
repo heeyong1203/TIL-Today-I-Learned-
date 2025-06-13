@@ -1,0 +1,85 @@
+package com.sinse.wms.global.view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.sinse.wms.AppMain2;
+import com.sinse.wms.global.config.ImageUtil;
+
+// wms 페이지의 최상단 객체
+public class Page extends JPanel {
+	protected AppMain2 appMain;
+	
+	String[] globalMenus = {"user_info","message","search","help","settings"};
+	String[][] localMenus = {
+			{"inbound","outbound","inventory","statistics","userManaging"}
+			,{"입고", "출고", "재고 현황", "통계 및 보고서", "사용자 관리"}
+			};
+	String[][] subMenus = {
+		    {"입고 현황", "입고 요청", "입고 검수"},
+		    {"출고 현황", "출고 요청", "출고 검수"},
+		    {},
+		    {"입/출고 현황 통계", "입/출고 현황 보고서"},
+		    {}
+		};
+	Image[] globalImgArr = new Image[globalMenus.length]; 
+	Image[] localImgArr = new Image[localMenus[0].length];
+	
+	ImageUtil imageUtil = new ImageUtil();
+	
+	public Page(AppMain2 appMain) {
+		this.appMain = appMain;
+		createImg();
+		JPanel p_global = appMain.getP_global_navi();
+		JPanel p_local = appMain.getP_local_navi();
+		p_global.setLayout(null);
+		p_local.setLayout(null);
+		
+		for (int i = 0; i < globalImgArr.length; i++) {
+		    JLabel la_global = new JLabel(new ImageIcon(globalImgArr[i]));
+		    la_global.setBounds(25, 25+i * 100, 50, 50); // 원하는 위치 지정 (X, Y, 너비, 높이)
+		    p_global.add(la_global);
+		}
+		
+		JLabel la_title = new JLabel("관리자 페이지");
+		la_title.setFont(new Font(null, Font.BOLD, 45));
+		la_title.setForeground(new Color(38,124,181));
+		la_title.setBounds(25, 0, 300, 150);
+		p_local.add(la_title);
+		
+		int y=150;
+		for (int i = 0; i < localMenus[0].length; i++) {
+			JLabel la_local = new JLabel(new ImageIcon(localImgArr[i]));
+			JLabel t_local = new JLabel(localMenus[1][i]);
+			la_local.setBounds(13, y, 74, 74);; // 원하는 위치 지정 (X, Y, 너비, 높이)
+			t_local.setBounds(100, y, 250, 74);; // 원하는 위치 지정 (X, Y, 너비, 높이)
+			t_local.setFont(new Font(null, Font.BOLD, 30));
+			p_local.add(la_local);
+			p_local.add(t_local);
+			y+=100;
+		
+			for (int j = 0; j < subMenus[i].length; j++) {
+				JLabel la_sub = new JLabel(subMenus[i][j]);
+				la_sub.setBounds(40, y-20, 300, 30);; // 원하는 위치 지정 (X, Y, 너비, 높이)
+				p_local.add(la_sub);
+				y+=30;
+			}
+		}
+	}
+	
+	public void createImg(){
+		// global menu 및 local menu 로고 이미지
+		for(int i=0; i<globalMenus.length; i++) {
+			globalImgArr[i] = imageUtil.getImage("images/"+globalMenus[i]+".png", 50, 50);
+		}
+		// local menu 및 local menu 로고 이미지
+		for(int i=0; i<localMenus[0].length; i++) {
+			localImgArr[i] = imageUtil.getImage("images/"+localMenus[0][i]+".png", 50, 50);
+		}
+	}
+}

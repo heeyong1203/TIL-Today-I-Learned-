@@ -1,0 +1,58 @@
+package com.sinse.shopadmin.product.view;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+
+import com.sinse.shopadmin.product.model.Product;
+import com.sinse.shopadmin.product.repository.ProductDAO;
+
+// JTable은 껍데기이므로, 이 모델만을 바라보고 정보를 가져감
+public class ProductModel extends AbstractTableModel {
+	ProductDAO productDAO;
+	List<Product> list = new ArrayList();
+	String[] column= {"topcategory_id", "top_name", "subcategory_id", "sub_name", 
+									 "product_id", "product_name", "brand", "price", "discount", "introduce", "detail"};
+	
+	public ProductModel() {
+		this.productDAO = new ProductDAO();
+		this.list = productDAO.selectAll();
+	}
+	
+	@Override
+	public int getRowCount() {
+		return list.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return column.length;
+	}
+	
+	public String getColumnName(int col) {
+		return column[col];
+	}
+
+	@Override // row는 층수를 결정, col은 0번째에 어떤 것, 1번째에 어떤 것을 가져올 지 조건문으로 내가 원하는 속성 사용
+	public Object getValueAt(int row, int col) {
+		Product product = list.get(row); // DAO에서 층수 레코드 가져오기 (레코드가 배열이 아닌 객체로 들어옴 : Product)
+		String value = null;
+		switch(col) { // 불러들인 레코드를 각 호수에 뿌려주기 (Product 객체의 컬럼을 각각 접근하여 지정해주어야 함)
+			case 0 : value = Integer.toString(product.getSubCategory().getTopcategory().getTopcategry_id()); break; // topcategory_id
+			case 1 : value = product.getSubCategory().getTopcategory().getTop_name(); break; // top_name
+			case 2 : value = Integer.toString(product.getSubCategory().getSubcategory_id()); break; // subcategory_id
+			case 3 : value = product.getSubCategory().getSub_name(); break; // sub_name
+			case 4 : value = Integer.toString(product.getProduct_id()); break; // product_id
+			case 5 : value = product.getProduct_name(); break; // product_name
+			case 6 : value = product.getBrand(); break; // brand
+			case 7 : value = Integer.toString(product.getPrice()); break; // price
+			case 8 : value = Integer.toString(product.getDiscount()); break; // discount
+			case 9 : value = product.getIntroduce(); break; // introduce
+			case 10 : value = product.getDetail(); break; //detail
+		}
+		
+		return value;
+	}
+	
+}

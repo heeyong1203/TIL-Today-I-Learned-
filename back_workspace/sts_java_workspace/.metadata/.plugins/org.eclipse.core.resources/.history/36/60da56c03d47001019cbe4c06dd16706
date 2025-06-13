@@ -1,0 +1,5 @@
+package com.sinse.shopadmin.product.model;
+
+public class ProductImg {
+
+}

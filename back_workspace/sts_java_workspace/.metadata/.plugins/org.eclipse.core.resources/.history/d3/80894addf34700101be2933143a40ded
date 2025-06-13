@@ -1,0 +1,8 @@
+package com.sinse.shopadmin.product.view;
+
+public class ExceptionTest3 {
+	public static void main(String[] args) {
+		
+		throw new NumberConvertFailException("내가 만든 예외");
+	}
+}

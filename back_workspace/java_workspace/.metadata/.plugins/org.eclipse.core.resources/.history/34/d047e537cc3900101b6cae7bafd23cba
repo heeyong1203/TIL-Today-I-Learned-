@@ -1,0 +1,15 @@
+package db;
+
+/* select문 수행하기 */
+public class SelectTest {
+	
+	public static void main(String[] args) {
+		// mysql에서 버전 확인하기 : select version()
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.println("Driver Load Success !!");
+		} catch (ClassNotFoundException e) {
+			e.getStackTrace();
+		}
+	}
+}

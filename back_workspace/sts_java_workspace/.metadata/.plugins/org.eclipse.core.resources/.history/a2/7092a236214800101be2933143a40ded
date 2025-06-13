@@ -1,0 +1,37 @@
+package com.sinse.shop.global.util;
+
+import java.util.Properties;
+
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+
+// 이메일을 보내주는 객체
+public class MailSender {
+	String account_user="rhyong1203@gmail.com"; // 구글 이메일 계정
+	String app_pwd = "rgdr txdb gnpe wkck"; // 내가 할당받은 앱 비밀번호 - 절대 노출되면 안됨!
+	Session session;
+	
+	public MailSender() {
+		// key-value map의 자식 객체
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true"); // 정해져 있음
+		// TLS(Transport Layer Security) : 데이터를 암호화하여 안전하게 전송하는 통신 프로토콜
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com"); // 구글에 보내는 메일 서버
+		props.put("mail.smtp", "587");
+		
+		session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(account_user, app_pwd); 
+			}
+		});
+		
+		
+		
+	}
+	
+	public void send() {
+		
+	}
+}

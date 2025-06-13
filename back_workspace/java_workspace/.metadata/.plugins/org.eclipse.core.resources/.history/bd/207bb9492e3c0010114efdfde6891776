@@ -1,0 +1,19 @@
+package shop.pages;
+
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Home extends JPanel{
+	JLabel la_title;
+	
+	public Home() {
+		la_title = new JLabel("쇼핑몰의 메인 페이지입니다.");
+		la_title.setFont(new Font("Arial Black", Font.BOLD, 200 ));
+		
+		add(la_title);
+		setBackground(Color.YELLOW);
+	}
+}

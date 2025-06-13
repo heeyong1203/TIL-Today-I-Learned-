@@ -1,0 +1,86 @@
+package com.sinse.shopadmin.global.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.sinse.shopadmin.global.config.Config;
+
+// AppMain에서 데이터베이스를 핸들링하지 말고, 보다 중립적인 객체에서 Connection을 얻는 것뿐 아니라 닫는 것마저도 대행해주는 기능을 보유한 객체 선언...
+public class DBManager {
+	private Connection conn;
+	
+	public DBManager() {
+		try {
+			// 1) 드라이버 로드
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2) 접속
+			conn = DriverManager.getConnection(Config.URL, Config.USER, Config.PASS);			
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Connection getConnection() {
+		return conn;
+	}
+	
+	// 데이터베이스 관련된 자원을 해제하는 메서드
+	public void release(PreparedStatement pstmt) { //DML (insert, update, delete)
+		if(pstmt!=null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		} 
+	
+	// select 데이터베이스 관련 자원을 해제하는 메서드
+	public void release(PreparedStatement pstmt, ResultSet rs) { //DML (insert, update, delete)
+		if(pstmt!=null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		} 
+		if(rs!=null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		}
+	}
+	
+	// Connection까지 종료하는 메서드
+	public void release(PreparedStatement pstmt, ResultSet rs, Connection conn) { //DML (insert, update, delete)
+		if(pstmt!=null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		} 
+		if(rs!=null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		}
+		if(conn!=null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

@@ -1,0 +1,179 @@
+package com.sinse.wms.global.view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
+
+import com.sinse.wms.AppMain;
+import com.sinse.wms.global.config.Config;
+import com.sinse.wms.global.config.ImageUtil;
+
+// wms 페이지의 최상단 객체
+public class Page extends JPanel {
+	String[] globalMenus = {"user_info.png","message.png","search.png","help.png","settings.png"};
+	String[][] localMenus = {
+		    {"inbound.png", "입고"},
+		    {"outbound.png", "출고"},
+		    {"inventory.png", "재고 현황"},
+		    {"statistics.png", "통계 및 보고서"},
+		    {"userManaging.png", "사용자 관리"}
+		};
+		String[][] localSubMenus = {
+		    {"입고 현황", "입고 요청", "입고 검수"},
+		    {"출고 현황", "출고 요청", "출고 검수"},
+		    {}, // 재고 현황에는 서브메뉴 없음
+		    {"입/출고 현황 통계", "입/출고 현황 보고서"},
+		    {} // 사용자 관리에는 서브메뉴 없음
+		};
+		ImageUtil imageUtil = new ImageUtil();
+	
+	public Page(AppMain appMain) {
+		setLayout(new BorderLayout());
+		JPanel p_west = createLeftSideBar();
+		JPanel p_right = createRightSection();
+
+		add(p_west, BorderLayout.WEST);
+		add(p_right);
+	}
+	
+	private JPanel createLeftSideBar() {
+		// 생성
+		JPanel panel = new JPanel();
+		JPanel p_globalNavi = new JPanel(); // global SideMenuBar
+		JPanel p_localNavi = new JPanel(); // local SideMenuBar
+		
+		// 스타일
+		panel.setLayout(new BorderLayout());
+		p_globalNavi.setPreferredSize(new Dimension(Config.p_globalNavi_width, Config.p_globalNavi_height));
+		p_globalNavi.setBackground(new Color(38,124,181));
+		p_localNavi.setPreferredSize(new Dimension(Config.p_localNavi_width, Config.p_localNavi_height));
+		p_localNavi.setBorder(new MatteBorder(0, 0, 0, 1, Color.BLACK));
+		
+		// 조립
+		p_globalNavi.setLayout(new BoxLayout(p_globalNavi, BoxLayout.Y_AXIS));
+		for (JPanel globalP : createGlobalPanels(globalMenus)) {
+			p_globalNavi.add(globalP);
+		 }
+		p_localNavi.setLayout(new BoxLayout(p_localNavi, BoxLayout.Y_AXIS));
+		for (JPanel localP : createLocalpanels(localMenus, localSubMenus, "관리자 페이지")) {
+			p_localNavi.add(localP);
+		}
+		
+		panel.add(p_globalNavi, BorderLayout.WEST);
+		panel.add(p_localNavi);
+		
+		return panel;
+	}
+	
+	private JPanel createRightSection() {
+		// 생성
+		JPanel panel = new JPanel();
+		JPanel p_top = new JPanel();
+		JPanel p_bottom = new JPanel();
+		
+		// 스타일
+		panel.setLayout(new BorderLayout());
+		p_top.setPreferredSize(new Dimension(Config.p_top_weight, Config.p_top_height));
+		p_bottom.setPreferredSize(new Dimension(Config.p_bottom_weight, Config.p_bottom_height));
+
+		// 조립
+		panel.add(p_top, BorderLayout.NORTH);	
+		panel.add(p_bottom);	
+		
+		return panel;
+	}
+	
+	private List<JPanel> createGlobalPanels(String[] globalMenus) {
+		List<JPanel> panels = new ArrayList();
+		// 생성
+		JPanel panel = new JPanel();
+		for (String iconName : globalMenus) {
+	        JLabel label = new JLabel(new ImageIcon(imageUtil.getImage("images/"+iconName, 50, 50)));
+	        
+	        // 스타일
+	        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+	        label.setAlignmentY(Component.CENTER_ALIGNMENT);
+	        
+	        // 조립
+	        panel.add(label);
+	        panel.add(Box.createRigidArea(new Dimension(25,100)));
+	        panels.add(panel);
+	    }
+		
+		return panels;
+	}
+	
+	private List<JPanel> createLocalpanels(String[][] localMenus, String[][] localSubMenus, String userType) {
+		List<JPanel> panels = new ArrayList();
+		// 대분류
+				// 생성
+				JPanel p_title = new JPanel();
+				JLabel la_title = new JLabel(userType);
+				// 스타일
+				p_title.setPreferredSize(new Dimension(Config.p_localNavi_width, 200));
+				p_title.setAlignmentX(Component.CENTER_ALIGNMENT);
+				p_title.setAlignmentY(Component.CENTER_ALIGNMENT);
+				la_title.setPreferredSize(new Dimension(259,54));
+				la_title.setFont(new Font("inter", Font.BOLD, 45));
+				la_title.setAlignmentX(Component.CENTER_ALIGNMENT);
+				la_title.setAlignmentY(Component.CENTER_ALIGNMENT);
+				la_title.setForeground(new Color(38,124,181));
+				// 조립
+				p_title.add(la_title);
+				panels.add(p_title);
+				
+				for(int i=0; i<localMenus.length; i++) {
+					// 중분류
+					// 생성
+					String icon = localMenus[i][0];
+					String title = localMenus[i][1];
+					JPanel mainPanel = new JPanel();
+					JLabel titleLabel = new JLabel(title);
+					JLabel iconLabel = new JLabel(new ImageIcon(imageUtil.getImage("images/"+icon, 75, 75)));
+					// 스타일
+					mainPanel.setPreferredSize(new Dimension(350,100));
+					iconLabel.setPreferredSize(new Dimension(100,100));
+					iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+					titleLabel.setPreferredSize(new Dimension(56,36));
+					titleLabel.setFont(new Font("inter", Font.BOLD, 30));
+					titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+					
+					// 조립
+					mainPanel.add(iconLabel);
+					mainPanel.add(titleLabel);
+					panels.add(mainPanel);
+					
+					// 소분류
+					for(String sub : localSubMenus[i]) {
+						// 생성
+						JPanel subPanel = new JPanel();
+						JLabel subLabel = new JLabel(sub);
+						// 스타일
+						subPanel.setPreferredSize(new Dimension(350,30));
+						subLabel.setPreferredSize(new Dimension(79,24));
+						subLabel.setFont(new Font("inter", Font.PLAIN, 10));
+						subLabel.setAlignmentX(LEFT_ALIGNMENT);
+						
+						// 조립
+						subLabel.setLayout(new BoxLayout(subLabel, BoxLayout.Y_AXIS));
+						subPanel.add(subLabel);
+						panels.add(subPanel);
+					}
+				}
+		return panels;
+	}
+	
+}

@@ -1,0 +1,15 @@
+package com.sinse.wms.inbound.view;
+
+import javax.swing.JPanel;
+
+public class InboundStatus extends JPanel {
+	public InboundStatus() {
+		
+		
+		
+		setBounds(495, 130, 900, 800);
+	}
+	
+	
+
+}

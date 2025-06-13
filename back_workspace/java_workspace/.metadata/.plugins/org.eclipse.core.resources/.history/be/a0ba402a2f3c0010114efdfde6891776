@@ -1,0 +1,21 @@
+package shop.pages;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class CS extends JPanel{
+	JLabel la_title;
+	
+	public CS() {
+		la_title = new JLabel("쇼핑몰 고객센터입니다.");
+		la_title.setFont(new Font("Gulim", Font.BOLD, 40 ));
+		
+		add(la_title);
+		setBackground(Color.BLUE);
+		setPreferredSize(new Dimension(800,600));
+	}
+}

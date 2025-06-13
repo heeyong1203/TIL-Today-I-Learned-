@@ -1,0 +1,80 @@
+package shop;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import shop.pages.Home;
+import util.ImageUtil;
+
+/* 화면을 4개 보유한 쇼핑몰 애플리케이션의 화면 전환 처리 방법 */
+public class ShopMain extends JFrame{
+	JPanel p_north; // 북쪽 패널
+	JButton bt_home;
+	JButton bt_product;
+	JButton bt_mypage;
+	JButton bt_cs;
+
+	JPanel p_center; // 프로그램 가동과 동시에 이 패널에는 앞으로 사용하게 될 페이지들을 미리 부착하게 될 예정
+	
+	ImageUtil imageUtil;
+	
+	Home home;
+	Product product;
+	MyPage myPage;
+	CS cs;
+	
+	public ShopMain() {
+		imageUtil = new ImageUtil();
+		
+		/* 쇼핑몰을 구성하는 모든 페이지를 보유한다. */
+
+		// 생성
+		p_north = new JPanel();
+		
+		bt_home = new JButton(imageUtil.getIcon("home.png", 35, 35));
+		bt_product = new JButton(imageUtil.getIcon("product.png", 35, 35));
+		bt_mypage = new JButton(imageUtil.getIcon("mypage.png", 35, 35));
+		bt_cs = new JButton(imageUtil.getIcon("cs.png", 35, 35));
+		
+		p_center = new JPanel();
+		
+		home =new Home();
+		
+		// 스타일
+		p_north.setPreferredSize(new Dimension(800, 50));
+		p_north.setBackground(Color.YELLOW);
+		
+		Dimension d = new Dimension(40, 40);
+		bt_home.setPreferredSize(d);
+		bt_product.setPreferredSize(d);
+		bt_mypage.setPreferredSize(d);
+		bt_cs.setPreferredSize(d);
+		
+		// 조립
+		p_north.add(bt_home);
+		p_north.add(bt_product);
+		p_north.add(bt_mypage);
+		p_north.add(bt_cs);
+		
+		p_center.add(home); // 메인 페이지를 센터 패널에 부착
+		
+		add(p_north, BorderLayout.NORTH);
+		add(p_center); // 프레임의 센터에 패널 부착
+				
+		setSize(800 ,650);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null); // 무엇을 중심으로 위치할 것인가? null 값을 주면 중앙에 생성됨
+
+	}
+
+		
+	public static void main(String[] args) {
+		new ShopMain();
+	}
+}

@@ -1,0 +1,5 @@
+package com.sinse.wms.inbound.view;
+
+public class InboundStatus {
+
+}

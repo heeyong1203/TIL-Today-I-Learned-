@@ -1,0 +1,38 @@
+package com.sinse.shopadmin.product.repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.sinse.shopadmin.global.exception.ProductImgException;
+import com.sinse.shopadmin.global.util.DBManager;
+import com.sinse.shopadmin.product.model.ProductImg;
+
+public class ProductImgDAO {
+	DBManager dbManager = DBManager.getInstance();
+	
+	// 하나의 제품에 딸려있는 이미지 등록
+	public void insert(ProductImg productImg) throws ProductImgException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		StringBuffer sql = new StringBuffer();
+		
+		conn = dbManager.getConnection();
+		
+		sql.append("insert into product_img(product_id, filename) values(?, ?)");
+		try {
+			pstmt=conn.prepareStatement(sql.toString());
+			pstmt.setInt(1,productImg.getProduct().getProduct_id());
+			pstmt.setString(2, productImg.getFilename());
+			int result = pstmt.executeUpdate(); // DML 실행
+			if(result < 1) {
+				throw new ProductImgException("상품 이미지 등록 실패");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ProductImgException("상품 이미지 등록에 실패하였습니다.\n불편을 드려 죄송합니다.", e);
+		} finally {
+			dbManager.release(pstmt);
+		}
+	}
+}

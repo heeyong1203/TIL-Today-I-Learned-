@@ -1,0 +1,21 @@
+package shop.pages;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+
+public class MyPage extends Page{
+	JLabel la_title;
+	
+	public MyPage() {
+		la_title = new JLabel("로그인 한 고객의 정보페이지입니다.");
+		la_title.setFont(new Font("Gulim", Font.BOLD, 40 ));
+		
+		add(la_title);
+		setBackground(Color.PINK);
+		setPreferredSize(new Dimension(800,600));
+		setVisible(false);
+	}
+}

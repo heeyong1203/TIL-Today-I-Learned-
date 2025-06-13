@@ -1,0 +1,34 @@
+package com.sinse.shopadmin.product.view;
+
+import java.awt.FlowLayout;
+import java.io.File;
+import java.io.InputStream;
+import java.util.stream.Stream;
+
+import javax.swing.JDialog;
+
+public class UploadDialog extends JDialog { // 새 창!! → Dialog!
+	ProductPage productPage;
+
+	public UploadDialog(ProductPage productPage) {
+		this.productPage = productPage;
+
+		JDialog dialog = new JDialog(this, "업로드 정보", true); // Dialog, String, modal(boolean)
+		dialog.setLocationRelativeTo(productPage);
+		dialog.setSize(700, 600);
+		dialog.setLayout(new FlowLayout());
+
+		// 커스텀 된 바를 임시로 10개 화면에 부착해보자
+		for (int i = 0; i < productPage.files.length; i++) {
+			// 어디에 저장할지 디렉토리 먼저 결정해야 함! C:/public (파일 복사, 붙여넣기를 위해... MyBar fis, fos 생성 후 작업)
+			// File destination = new File("C:/public/");
+			// 원본파일로부터 확장자를 구하자! a01234.jpg → 제일 마지막 .의 순서 +1 번째부터 마지막글자까지...
+			
+			
+			System.currentTimeMillis();
+			MyBar bar = new MyBar(productPage.files[i], "대상파일");
+			dialog.add(bar);
+		}
+		dialog.setVisible(true);
+	}
+}

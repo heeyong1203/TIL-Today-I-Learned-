@@ -1,0 +1,5 @@
+package com.sinse.networkapp.echo.server;
+
+public class EchoGUIServer {
+
+}

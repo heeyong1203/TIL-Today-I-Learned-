@@ -1,0 +1,5 @@
+package com.sinse.shopadmin.global.util;
+
+public class DBManager {
+
+}

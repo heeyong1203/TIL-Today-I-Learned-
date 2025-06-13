@@ -1,0 +1,12 @@
+package com.sinse.shopadmin.product.view;
+
+public class ExceptionTest3 {
+	public static void main(String[] args) {
+		System.out.println("A");
+		try {
+			throw new NumberConvertFailException("내가 만든 예외"); // 실행부가 여기서 에러 발생으로 종료됨
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("B");	} // 실행부 종료로 인해 실행되지 않음
+}

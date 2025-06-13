@@ -1,0 +1,64 @@
+package test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Test {
+	String path = "C:/public/data.txt";
+	
+	public void readByte() {
+		// 바이트 기반의 스트림으로 읽기
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(path);
+			int data = -1;
+			while(true) {
+				data = fis.read(); // 1byte 읽기...
+				if(data!=-1) break;
+				System.out.println((char)data);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(fis!=null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+	// 문자 기반의 스트림으로 읽기 : 데이터를 읽어들일 때 1문자씩 읽어들임.. 
+	// ☆☆ 한글을 읽는다고 하여 2byte로 이해하여 1byte기반인 영문을 두 글자씩 읽어들이는 것은 아님!!
+	// 문자로 해석할 수 있는 능력이 있는 것일 뿐..
+	public void readReader() {
+		 FileInputStream fis = null;
+		 InputStreamReader reader; 
+		try {
+			fis = new FileInputStream(path); // 바이트 기반
+			reader = new InputStreamReader(fis); // 문자 기반 (바이트 기반 위에 생성해야 함... 따라서 덧씌워야 함) 
+			int data = -1;	
+			data = reader.read(); System.out.println((char)data); // reader... 한글일 경우 한 글자, 영문일 경우에도 한 글자만 읽어들임...
+
+			//				if(data==-1)break;			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public void readBuffer() {
+		
+	}
+	
+	public static void main(String[] args) {
+		Test test = new Test();
+		test.readByte();
+	}
+}

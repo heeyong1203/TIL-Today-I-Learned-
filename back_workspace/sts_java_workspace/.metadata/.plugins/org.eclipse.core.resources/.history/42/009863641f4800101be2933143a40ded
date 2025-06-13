@@ -1,0 +1,9 @@
+package com.sinse.shop.global.util;
+
+// 이메일을 보내주는 객체
+public class MailSender {
+	String account_user="rhyong1203@gmail.com"; // 구글 이메일 계정
+	String app_pwd = "rgdr txdb gnpe wkck"; // 내가 할당받은 앱 비밀번호 - 절대 노출되면 안됨!
+	Session session;
+	
+}

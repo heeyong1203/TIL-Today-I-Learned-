@@ -1,0 +1,39 @@
+package test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class Test {
+	String path = "C:/public/data.txt";
+	
+	public void readByte() {
+		// 바이트 기반의 스트림으로 읽기
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(path);
+			while(true) {
+				int data = -1;
+				data = fis.read(); // 1byte 읽기...
+				if(data!=-1) break;
+				System.out.println(data);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(fis!=null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+	
+	public static void main(String[] args) {
+		new Test();
+	}
+}

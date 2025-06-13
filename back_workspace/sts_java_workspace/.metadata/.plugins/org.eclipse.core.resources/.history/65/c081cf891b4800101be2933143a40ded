@@ -1,0 +1,12 @@
+package com.sinse.shop.member.repository;
+
+import com.sinse.shop.global.util.DBManager;
+
+public class MemberDAO {
+	DBManager dbManager = DBManager.getInstance();
+	
+	// 가입
+	public void insert() {
+		
+	}
+}

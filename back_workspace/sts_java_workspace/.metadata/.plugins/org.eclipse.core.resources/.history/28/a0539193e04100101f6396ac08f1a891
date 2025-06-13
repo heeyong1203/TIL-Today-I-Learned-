@@ -1,0 +1,113 @@
+package com.sinse.threadapp.ani;
+
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
+public class Gallery extends JFrame {
+	JPanel p_west; // 썸네일이 그려질 통 패널 (모든 썸네일을 그려서 표현할 것임)
+	JPanel p_container; // north, center 패널을 감싸안을 바깥 컨테이너(BorderLayout)
+	JPanel p_north; // 북쪽 컨트롤러 영역
+	JPanel p_center; // 큰 사진 보여질 영역
+
+	Image[] imgArray = new Image[9];
+
+	ImageUtil imageUtil = new ImageUtil();
+
+	Rectangle[] rectArray = new Rectangle[imgArray.length];
+	int y=5;
+	Thread thread; // js 시절의 바로 그 게임루프..
+
+	public Gallery() {
+		// 생성
+		createImg(); // 그려지기 전에 이미지를 준비해 놓아야 함
+
+		thread = new Thread() {
+			public void run() {
+				while(true) {
+					try {
+						Thread.sleep(10);
+						p_west.repaint();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		p_west = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				for (int i = 0; i < imgArray.length; i++) {
+					g.drawImage(imgArray[i], 5, 5 + (95 * i), 90, 90, p_west);
+				}
+				
+				// 그려진 이미지 위로 옮겨다닐 사각 포인터...
+				Graphics2D g2 = (Graphics2D)g;
+				g2.setStroke(new BasicStroke(5));
+				g.setColor(Color.RED);
+				g.drawRect(5, y, 90, 90);
+			}
+		};
+		p_container = new JPanel();
+		p_north = new JPanel();
+		p_center = new JPanel();
+
+		// 스타일
+		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		p_west.setPreferredSize(new Dimension(100, 900));
+
+		p_container.setPreferredSize(new Dimension(900, 900));
+		p_north.setBackground(Color.PINK);
+		p_north.setPreferredSize(new Dimension(800, 75));
+		p_center.setBackground(Color.RED);
+		p_center.setPreferredSize(new Dimension(800, 825));
+
+		// 조립
+		add(p_west, BorderLayout.WEST);
+		p_container.setLayout(new BorderLayout());
+		p_container.add(p_north, BorderLayout.NORTH);
+		p_container.add(p_center);
+		add(p_container);
+
+		// 좌측 패널에 마우스 이벤트 연결
+		p_west.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				for (int i = 0; i < rectArray.length; i++) {
+					if (rectArray[i].contains(e.getPoint())) {
+						System.out.println((i + 1) + " 번째 썸네일 클릭함?");
+						y = rectArray[i].y;
+					}
+				}
+			}
+		});
+
+		setSize(900, 900);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+
+	// url로부터 이미지를 얻어와 미리 준비하기
+	public void createImg() {
+		for (int i = 0; i < imgArray.length; i++) {
+			imgArray[i] = imageUtil.getImage("images/geographic/geographic" + (i + 1) + ".jpg", 90, 90);
+
+			// 화면에 렌더링하지는 않지만 원하는 좌표에 사각형을 메모리 상에 존재시키면, 원하는 영역에 이벤트 부여할 수 있음
+			rectArray[i] = new Rectangle(5, 5 + (95 * i), 90, 90);
+		}
+	}
+
+	public static void main(String[] args) {
+		new Gallery();
+	}
+}

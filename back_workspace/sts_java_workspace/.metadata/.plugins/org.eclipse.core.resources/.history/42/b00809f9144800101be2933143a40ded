@@ -1,0 +1,7 @@
+package com.sinse.shop.member.view;
+
+import com.sinse.shop.global.view.Page;
+
+public class MemberJoin extends Page{
+
+}

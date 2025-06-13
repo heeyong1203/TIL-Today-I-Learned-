@@ -1,0 +1,16 @@
+package com.sinse.practice.global.config;
+
+public class Config {
+	public static final int P_WEST_WIDTH = 450;
+	public static final int P_WEST_HEIGHT = 960;
+	public static final int P_GLOBAL_NAVI_WIDTH = 100;
+	public static final int P_GLOBAL_NAVI_HEIGHT = P_WEST_HEIGHT;
+	public static final int P_LOCAL_NAVI_WIDTH = P_WEST_WIDTH-P_GLOBAL_NAVI_WIDTH;
+	public static final int P_LOCAL_NAVI_HEIGHT = P_WEST_HEIGHT;
+	public static final int P_CENTER_WIDTH = 990;
+	public static final int P_CENTER_HEIGHT = 960;
+	public static final int P_HEADER_WIDTH = P_CENTER_WIDTH;
+	public static final int P_HEADER_HEIGHT = 200;
+	public static final int P_CONTENT_WIDTH = P_CENTER_WIDTH;
+	public static final int P_CONTENT_HEIGHT = P_CENTER_HEIGHT-P_HEADER_HEIGHT;
+}

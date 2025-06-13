@@ -1,0 +1,5 @@
+package com.sinse.shop.global.util;
+
+public class MailSender {
+
+}

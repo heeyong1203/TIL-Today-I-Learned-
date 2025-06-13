@@ -1,0 +1,117 @@
+package com.sinse.wms;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
+
+import com.sinse.wms.global.config.Config;
+import com.sinse.wms.global.view.Page;
+import com.sinse.wms.inbound.view.InboundStatus;
+
+public class AppMain2 extends JFrame{
+	private JPanel p_wrapper;
+	private JPanel p_west;
+	private JPanel p_container;
+	private JPanel p_global_navi;
+	private JPanel p_local_navi;
+	private JPanel p_north;
+	private JPanel p_center;
+	Page page;
+	
+	public AppMain2() {
+		// 생성
+		p_wrapper = new JPanel();
+		p_west = new JPanel(); // wrapper에 붙임
+		p_container = new JPanel(); // wrapper에 붙임
+		p_global_navi = new JPanel(); // west에 붙임
+		p_local_navi = new JPanel(); // west에 붙임
+		p_north = new JPanel(); // container에 붙임
+		p_center = new JPanel(); // container에 붙임
+		
+		// 스타일 
+		p_wrapper.setBackground(new Color(227,227,227));
+		p_wrapper.setPreferredSize(new Dimension(Config.P_WRAPPER_WIDTH, Config.P_WRAPPER_HEIGHT)); // 1440, 960
+		p_west.setPreferredSize(new Dimension(Config.P_WEST_WIDTH, Config.P_WEST_HEIGHT)); // 450, 960
+		p_container.setPreferredSize(new Dimension(Config.P_CONTAINER_WIDTH, Config.P_CONTAINER_HEIGHT)); // 990, 960
+		p_global_navi.setBackground(new Color(38,124,181));
+		p_global_navi.setPreferredSize(new Dimension(Config.P_GLOBAL_NAVI_WIDTH, Config.P_GLOBAL_NAVI_HEIGHT)); // 100, 960
+		p_local_navi.setPreferredSize(new Dimension(Config.P_LOCAL_NAVI_WIDTH, Config.P_LOCAL_NAVI_HEIGHT)); // 300, 960
+		p_local_navi.setBorder(new MatteBorder(0,0, 0, 1, Color.BLACK));
+		p_north.setPreferredSize(new Dimension(Config.P_NORTH_WIDTH, Config.P_NORTH_HEIGHT)); // 990, 100
+		p_center.setPreferredSize(new Dimension(Config.P_CENTER_WIDTH, Config.P_CENTER_HEIGHT)); // 990, 860
+		
+		
+		// 조립
+		setLayout(new BorderLayout());
+		p_west.setLayout(new BorderLayout());
+		p_west.add(p_global_navi, BorderLayout.WEST);
+		p_west.add(p_local_navi);
+		p_wrapper.setLayout(new BorderLayout());
+		p_wrapper.add(p_west, BorderLayout.WEST);
+		p_container.setLayout(new BorderLayout());
+		p_container.add(p_north, BorderLayout.NORTH);
+		p_container.add(p_center);
+		p_wrapper.add(p_container);
+		add(p_wrapper);
+		
+		new Page(this);
+		new InboundStatus(this);
+		
+		setSize(Config.P_WRAPPER_WIDTH, Config.P_WRAPPER_HEIGHT);
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	
+	public JPanel getP_wrapper() {
+		return p_wrapper;
+	}
+	public void setP_wrapper(JPanel p_wrapper) {
+		this.p_wrapper = p_wrapper;
+	}
+	public JPanel getP_west() {
+		return p_west;
+	}
+	public void setP_west(JPanel p_west) {
+		this.p_west = p_west;
+	}
+	public JPanel getP_container() {
+		return p_container;
+	}
+	public void setP_container(JPanel p_container) {
+		this.p_container = p_container;
+	}
+	public JPanel getP_global_navi() {
+		return p_global_navi;
+	}
+	public void setP_global_navi(JPanel p_global_navi) {
+		this.p_global_navi = p_global_navi;
+	}
+	public JPanel getP_local_navi() {
+		return p_local_navi;
+	}
+	public void setP_local_navi(JPanel p_local_navi) {
+		this.p_local_navi = p_local_navi;
+	}
+	public JPanel getP_north() {
+		return p_north;
+	}
+	public void setP_north(JPanel p_north) {
+		this.p_north = p_north;
+	}
+	public JPanel getP_center() {
+		return p_center;
+	}
+	public void setP_center(JPanel p_center) {
+		this.p_center = p_center;
+	}
+	
+	public static void main(String[] args) {
+		new AppMain();
+	}
+}

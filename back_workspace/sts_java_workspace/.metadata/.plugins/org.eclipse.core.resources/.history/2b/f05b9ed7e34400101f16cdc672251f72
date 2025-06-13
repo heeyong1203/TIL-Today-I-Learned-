@@ -1,0 +1,23 @@
+package com.sinse.shopadmin.product.model;
+
+// 아래의 클래스는 로직을 담기 위한 객체가 아니라, 단지 데이터베이스의 TopCategory 테이블의 레코드 한 건을 담기 위한 모델 객체임...
+// 또한 이 객체는 DB의 레코드를 담고 있기 때문에 보안상 중요함... 따라서 은닉화 시켜 정의해야 함
+public class TopCategory {
+	private int topcategry_id;
+	private String top_name;
+	
+	public int getTopcategry_id() {
+		return topcategry_id;
+	}
+	public void setTopcategry_id(int topcategry_id) {
+		this.topcategry_id = topcategry_id;
+	}
+	public String getTop_name() {
+		return top_name;
+	}
+	public void setTop_name(String top_name) {
+		this.top_name = top_name;
+	}
+	
+	
+}

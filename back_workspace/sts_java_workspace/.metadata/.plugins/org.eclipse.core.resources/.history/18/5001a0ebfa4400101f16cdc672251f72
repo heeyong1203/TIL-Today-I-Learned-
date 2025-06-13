@@ -1,0 +1,14 @@
+package com.sinse.shopadmin.product.repository;
+
+import com.sinse.shopadmin.global.util.DBManager;
+
+public class SubCategoryDAO {
+	
+	// dbManager 계속 생성 시, Connection 개체도 계속 생성되므로 싱글턴 패턴이 필요함
+	// Design Pattern (90년대 중반 미국 4갱 Gang of four : 26개의 패턴에 이름을 붙였는데, 싱글턴(SingleTon)패턴도 이 중 하나임)
+	DBManager dbManager; 
+	public SubCategoryDAO() {
+		dbManager = new DBManager();
+	}
+	public void selectAll() {}
+}

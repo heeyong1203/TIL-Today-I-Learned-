@@ -1,0 +1,67 @@
+package com.sinse.wms;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
+
+public class AppMain extends JFrame{
+	private JPanel p_navi, p_global, p_local;
+	private JPanel p_section, p_north, p_center;
+		
+	public AppMain() {
+		// 생성
+		p_navi = new JPanel();
+		p_global = new JPanel();
+		p_local = new JPanel();
+		
+		p_section = new JPanel();
+		p_north = new JPanel();
+		p_center = new JPanel();
+		
+		// 스타일
+		setBackground(new Color(227, 227, 227));
+		p_navi.setPreferredSize(new Dimension(450, 960));
+		p_global.setPreferredSize(new Dimension(450, 960));
+		p_local.setPreferredSize(new Dimension(450, 960));
+		p_local.setBackground(new Color(38, 124, 181));
+		p_local.setBorder(new MatteBorder(0,0,0,1, Color.BLACK));
+		
+		p_section.setPreferredSize(new Dimension(990, 960));
+		p_north.setBackground(Color.cyan);
+		p_north.setPreferredSize(new Dimension(990, 100));
+		p_center.setBackground(Color.green);
+		p_center.setPreferredSize(new Dimension(990, 860));
+		
+		//조립
+		setLayout(new BorderLayout());
+		//p_navi.setLayout(new BorderLayout());
+		//p_navi.setLayout(new BorderLayout());
+		p_navi.add(p_global, BorderLayout.WEST);
+		p_navi.add(p_local, BorderLayout.CENTER);
+		p_section.add(p_north, BorderLayout.SOUTH);
+		p_section.add(p_center, BorderLayout.CENTER);
+		add(p_navi, BorderLayout.WEST);
+		add(p_section, BorderLayout.CENTER);
+		
+		// 페이지 확인
+		// showPage(new Page(this));
+		
+		setSize(1440, 960);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE); // db 연동 시 해제
+	}
+	
+	public void showPage(JPanel panel){
+		p_center.add(panel);
+	}
+	
+	
+	public static void main(String[] args) {
+		new AppMain();
+	}
+}

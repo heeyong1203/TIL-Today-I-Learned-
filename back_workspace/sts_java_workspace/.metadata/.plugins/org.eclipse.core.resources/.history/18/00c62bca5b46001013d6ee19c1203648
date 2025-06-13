@@ -1,0 +1,13 @@
+package com.sinse.shopadmin.product.view;
+
+import javax.swing.JDialog;
+
+public class UploadDialog extends JDialog{ // 새 창!! → Dialog!
+	
+	public UploadDialog() {
+		JDialog dialog = new JDialog(this, "업로드 정보", true); // Dialog, String, modal(boolean)
+		this.setSize(700,600);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+	}
+}

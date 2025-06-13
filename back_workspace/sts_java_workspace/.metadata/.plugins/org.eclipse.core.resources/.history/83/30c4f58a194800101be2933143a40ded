@@ -1,0 +1,5 @@
+package com.sinse.shop.member.repository;
+
+public class MemberDAO {
+	
+}

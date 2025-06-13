@@ -1,0 +1,6 @@
+package util;
+
+// 어떤 프로그램이든 이미지와 관련된 유용한 기능을 이 클래스에서 제공해줌
+public class ImageUtil {
+
+}

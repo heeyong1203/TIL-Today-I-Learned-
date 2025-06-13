@@ -1,0 +1,21 @@
+package com.sinse.shopadmin.global.exception;
+
+// 상품과 관련된 나만의 예외
+public class ColorException extends RuntimeException {
+	
+	// 에러의 원인 및 에러 메시지를 객체에 담으려면 생성자에서 처리할 수 있는데...
+	// 자바의 문법 상 부모의 생성자는 물려받지 못하므로, 부모의 생성자를 직접 호출하여,
+	// 에러의 원인 및 에러 메시지를 객체에 담아보자.
+	public ColorException(String msg) {
+		super(msg);
+	}
+	
+	public ColorException(Throwable e) { // 예외 객체들 중 최상위 객체를 Throwable 인터페이스라고 함.. 어떠한 예외가 발생하더라도 다 받을 수 있음
+		super(e);
+	}
+	
+	public ColorException(String msg, Throwable e) {
+		super(msg, e);
+	}	
+	
+}

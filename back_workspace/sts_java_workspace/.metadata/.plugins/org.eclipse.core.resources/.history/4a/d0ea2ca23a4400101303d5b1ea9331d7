@@ -1,0 +1,14 @@
+package com.sinse.wms.signup.view;
+
+import java.awt.Color;
+
+import com.sinse.wms.AppMain;
+import com.sinse.wms.global.view.Page;
+
+public class SignUp extends Page{
+	public signUp(AppMain appMain) {
+		super(appMain);
+		setBackground(new Color(227, 227, 227));
+
+	}
+}

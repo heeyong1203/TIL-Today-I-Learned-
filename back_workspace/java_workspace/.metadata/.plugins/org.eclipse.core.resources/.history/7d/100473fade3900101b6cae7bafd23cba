@@ -1,0 +1,47 @@
+package db;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+/* Emp 테이블에 있는 레코드를 모두 가져와서 Jtable에 출력해보기 */
+public class EmpLoad extends JFrame{
+	// Frame 너비 800
+	JTable table;
+	JScrollPane scroll;
+	
+	public void loadData() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.println("Driver Load Success!!");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		String url;
+		String user;
+		String pass;
+	}
+	
+	public EmpLoad() {
+		// mysql에서 이미 사원 정보를 가져왔어야 함
+		loadData();
+		
+		table=new JTable();
+		scroll=new JScrollPane(table);
+		
+		setLayout(new FlowLayout());
+		
+		add(scroll);
+		
+		setSize(800,600);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	public static void main(String[] args) {
+		new EmpLoad();
+	}
+}

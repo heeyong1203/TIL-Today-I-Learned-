@@ -1,0 +1,19 @@
+package com.sinse.shop.member.view;
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+import com.sinse.shop.AppMain;
+import com.sinse.shop.global.config.Config;
+import com.sinse.shop.global.view.Page;
+
+public class MemberJoin extends Page{
+	
+	public MemberJoin(AppMain appMain) {
+		super(appMain);
+		
+		setPreferredSize(new Dimension(Config.SHOPMAIN_WIDTH, Config.SHOPMAIN_HEIGHT-Config.NAVI_HEIGHT-Config.UTIL_HEIGHT));
+		setBackground(Color.PINK);
+		setVisible(true);
+	}
+}

@@ -1,0 +1,37 @@
+package com.sinse.wms.global.config;
+
+// 물류관리시스템 에서 사용되는 모든 상수를 관리하는 클래스 
+public class Config {
+	/*--------------------------------------------------------
+	    페이지 정의
+	 --------------------------------------------------------*/
+	public static final int SIGNIN_PAGE=0;
+	public static final int MAIN_PAGE=1;
+	public static final int SIGNUP_PAGE=10;
+	
+	
+	/*--------------------------------------------------------
+	    페이지 정의
+	 --------------------------------------------------------*/
+	public static final int P_WRAPPER_WIDTH = 1440;
+	public static final int P_WRAPPER_HEIGHT = 960;
+	
+	public static final int P_WEST_WIDTH = 450;
+	public static final int P_WEST_HEIGHT = P_WRAPPER_HEIGHT;
+	public static final int P_GLOBAL_NAVI_WIDTH = 100;
+	public static final int P_GLOBAL_NAVI_HEIGHT = P_WRAPPER_HEIGHT;
+	public static final int P_LOCAL_NAVI_WIDTH = P_WEST_WIDTH-P_GLOBAL_NAVI_WIDTH;
+	public static final int P_LOCAL_NAVI_HEIGHT = P_WRAPPER_HEIGHT;
+	public static final int LOCAL_MENU_WIDTH = 250;
+	public static final int LOCAL_MENU_HEIGHT = 150;
+	public static final int MENU_DETAIL_WIDTH = 300;
+	public static final int MENU_DETAIL_HEIGHT = 30;
+	
+	public static final int P_CENTER_WIDTH = P_WRAPPER_WIDTH-P_WEST_WIDTH;
+	public static final int P_CENTER_HEIGHT = P_WRAPPER_HEIGHT;
+	public static final int P_HEADER_WIDTH = P_CENTER_WIDTH;
+	public static final int P_HEADER_HEIGHT = 200;
+	public static final int P_CONTENT_WIDTH = P_CENTER_WIDTH;
+	public static final int P_CONTENT_HEIGHT = P_CENTER_HEIGHT-P_HEADER_HEIGHT;
+	
+}

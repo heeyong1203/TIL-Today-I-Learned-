@@ -1,0 +1,28 @@
+package com.sinse.networkapp.server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class EchoServer {
+	// 서버란, 통신의 양 당사자 중, 접속을 기다리는 쪽임
+	// 자바 se 소켓 서버를 구축하려면 ServerSocket이라는 클래스를 이용한다.
+	ServerSocket server;
+	
+	public EchoServer() {
+		// 0~1023 시스템 점유 포트 3306: mysql / 1521: oracle 피할 것
+		try {
+			server = new ServerSocket(9999);
+			System.out.println("서버 객체 생성");
+			server.accept(); // 사용자의 접속을 청취하는 메서드, 접속이 발생할때까지 무한정 대기상태 진입
+			System.out.println("접속자 발견!!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	
+	}
+	
+	public static void main(String[] args) {
+		new EchoServer();
+	}
+	
+}
