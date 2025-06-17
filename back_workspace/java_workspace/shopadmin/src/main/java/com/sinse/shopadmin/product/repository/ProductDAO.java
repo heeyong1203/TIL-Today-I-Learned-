@@ -11,7 +11,7 @@ import com.sinse.shopadmin.common.exception.ProductException;
 import com.sinse.shopadmin.common.util.DBManager;
 import com.sinse.shopadmin.product.model.Product;
 import com.sinse.shopadmin.product.model.SubCategory;
-import com.sinse.shopadmin.product.model.TopCategory;
+import com.sinse.wms.inbound.model.TopCategory;
 
 //Product 테이블에 대한 CRUD 만을 수행함 - 즉 데이터베이스 작업코드만 작성해야 함..
 public class ProductDAO {

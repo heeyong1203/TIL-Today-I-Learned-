@@ -28,3 +28,6 @@ Thumbs.db
 # 기타
 node_modules/
 dist/
+
+# Maven/Gradle 빌드 결과물
+**/target/

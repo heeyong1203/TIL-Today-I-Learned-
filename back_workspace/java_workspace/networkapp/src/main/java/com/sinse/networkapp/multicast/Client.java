@@ -2,6 +2,8 @@ package com.sinse.networkapp.multicast;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -27,9 +29,7 @@ public class Client extends JFrame implements Runnable {
 	JScrollPane scroll;
 	JTextField t_input;
 	Thread thread; // run() 실행하기 위해...
-	Socket socket;
-	BufferedReader buffr;
-	BufferedWriter buffw;
+	ClientChatThread chatThread; // 채팅용 쓰레드
 	
 	public Client() {
 		p_north = new JPanel();
@@ -59,25 +59,20 @@ public class Client extends JFrame implements Runnable {
 			thread.start();
 		});
 		
+		t_input.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+					chatThread.send(t_input.getText());
+					t_input.setText("");//입력 초기화
+				}
+			}
+		});
+		
 		setBounds(200, 100, 300, 400);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	
-	public void createIp() {
-		for(int i=0;i<=100;i++) {
-			box_ip.addItem("192.168.60."+i);
-		}
-	}
-	
-	public void send() {
-		try {
-			buffw.write(t_input.getText()+"\n");
-			buffw.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	// 접속이란, 서버의 ip와 port번호를 이용하여 소켓을 생성하는 것
 	public void connectServer() {
@@ -85,9 +80,12 @@ public class Client extends JFrame implements Runnable {
 		int port = Integer.parseInt(t_port.getText());
 		
 		try {
-			socket = new Socket(ip, port);
-			buffr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			buffw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			Socket socket = new Socket(ip, port);
+			
+			// 접속 이후부터는 채팅은 쓰레드가 담당하므로, 소켓을 쓰레드에게 전달해주자
+			chatThread = new ClientChatThread(this, socket);
+			chatThread.start();
+			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -97,6 +95,12 @@ public class Client extends JFrame implements Runnable {
 	
 	public void run() {
 		connectServer();
+	}
+	
+	public void createIp() {
+		for(int i=0;i<=100;i++) {
+			box_ip.addItem("192.168.60."+i);
+		}
 	}
 	
 	public static void main(String[] args) {

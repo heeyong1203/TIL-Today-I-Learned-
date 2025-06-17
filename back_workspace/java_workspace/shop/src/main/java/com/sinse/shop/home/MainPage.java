@@ -23,6 +23,9 @@ public class MainPage extends Page{
 	ImageUtil imageUtil=new ImageUtil();
 	Image image;
 	ProductDAO productDAO = new ProductDAO();
+
+	// 최신 상품 목록 중 유저가 지금 선택한 바로 그 상품!!
+	public Product product;
 	
 	public MainPage(AppMain appMain) {
 		super(appMain);
@@ -42,7 +45,7 @@ public class MainPage extends Page{
 			}
 		};
 		
-		p_content = new JPanel(new FlowLayout(FlowLayout.LEFT, 11, 50));
+		p_content = new JPanel(new FlowLayout(FlowLayout.LEFT, 11, 40));
 		
 		//스타일
 		p_visual.setPreferredSize(new Dimension(Config.MAIN_VISUAL_WIDTH, Config.MAIN_VISUAL_HEIGHT));
@@ -60,6 +63,7 @@ public class MainPage extends Page{
 		
 		
 		//조립 
+		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		add(p_visual);
 		add(p_content);
 		
@@ -77,7 +81,7 @@ public class MainPage extends Page{
 				System.out.println(i+"번쨰"+product.getFilenameList().get(a));
 			}
 			
-			ProductItem productItem = new ProductItem(product); // 상품 하나를 표현하는 디자인 카드
+			ProductItem productItem = new ProductItem(this, product); // 상품 하나를 표현하는 디자인 카드
 			
 			p_content.add(productItem);
 		}

@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.sinse.shopadmin.common.util.DBManager;
 import com.sinse.shopadmin.product.model.SubCategory;
-import com.sinse.shopadmin.product.model.TopCategory;
+import com.sinse.wms.inbound.model.TopCategory;
 
 public class SubCategoryDAO {
 	DBManager dbManager=DBManager.getInstance();

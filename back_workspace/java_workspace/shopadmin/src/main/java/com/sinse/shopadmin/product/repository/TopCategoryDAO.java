@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sinse.shopadmin.common.util.DBManager;
-import com.sinse.shopadmin.product.model.TopCategory;
+import com.sinse.wms.inbound.model.TopCategory;
 
 /* javaEE 개발에서는, 개발자들 간 협업을 위해, 정해진 규칙에 따라 코드를 작성해야 한다..
  * 특히 DB에서 테이블이 하나 정의되면, java 개발자는 이 테이블에 대해 1:1 대응하는 모델객체+

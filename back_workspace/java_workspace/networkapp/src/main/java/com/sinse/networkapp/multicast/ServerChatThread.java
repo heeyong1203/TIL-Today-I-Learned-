@@ -12,7 +12,6 @@ public class ServerChatThread extends Thread {
 	Socket socket; // 서버로부터 넘겨받은 소켓... 스트림을 뽑을수 있기에..
 	BufferedReader buffr;
 	BufferedWriter buffw;
-	Thread thread;
 	GUIServer guiServer;
 	
 	public ServerChatThread(GUIServer guiServer, Socket socket) {
@@ -26,7 +25,6 @@ public class ServerChatThread extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		thread.start();
 	}
 	
 	public void run() {
@@ -42,9 +40,16 @@ public class ServerChatThread extends Thread {
 			msg = buffr.readLine(); // 클라이언트가 전송한 메세지 청취
 			guiServer.area.append(msg+"\n");
 			
-			send(msg);
+			// 서버에 접속한 모든 유저와 1:1 대응하는 ServerChatThread 수만큼 반복하면서 메시지를 보내자
+			for (int i=0; i<guiServer.vec.size(); i++) {
+				ServerChatThread st = guiServer.vec.get(i);
+				st.send(msg);
+			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			guiServer.vec.remove(this); // 상대 client가 나가서 readLine()에서 오류가 발생함...
+										// 오류가 발생한 당사자인 ServerChatThread를 제거 해야 함
+			guiServer.area.append("현재 접속자 수는 "+guiServer.vec.size()+"명입니다.\n");
+			// e.printStackTrace();
 		}
 	}
 	

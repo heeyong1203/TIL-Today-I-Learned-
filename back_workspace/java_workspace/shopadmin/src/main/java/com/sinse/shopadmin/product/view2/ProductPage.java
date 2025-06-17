@@ -32,7 +32,6 @@ import com.sinse.shopadmin.product.model.ProductImg;
 import com.sinse.shopadmin.product.model.ProductSize;
 import com.sinse.shopadmin.product.model.Size;
 import com.sinse.shopadmin.product.model.SubCategory;
-import com.sinse.shopadmin.product.model.TopCategory;
 import com.sinse.shopadmin.product.repository.ColorDAO;
 import com.sinse.shopadmin.product.repository.ProductColorDAO;
 import com.sinse.shopadmin.product.repository.ProductDAO;
@@ -41,6 +40,7 @@ import com.sinse.shopadmin.product.repository.ProductSizeDAO;
 import com.sinse.shopadmin.product.repository.SizeDAO;
 import com.sinse.shopadmin.product.repository.SubCategoryDAO;
 import com.sinse.shopadmin.product.repository.TopCategoryDAO;
+import com.sinse.wms.inbound.model.TopCategory;
 
 //상품 등록 페이지 
 public class ProductPage extends Page{

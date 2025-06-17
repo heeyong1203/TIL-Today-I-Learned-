@@ -1,5 +1,7 @@
 package com.sinse.shopadmin.product.model;
 
+import com.sinse.wms.inbound.model.TopCategory;
+
 //오직 레코드 1건을 담기 위한 객체를 모델 객체라 한다.
 public class SubCategory {
 	//데이터베이스의 컬럼명과 일치하는 멤버변수를 보유하고, 은닉화 시켜야 함 

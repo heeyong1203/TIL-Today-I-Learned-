@@ -15,6 +15,7 @@ import com.sinse.shop.common.config.Config;
 import com.sinse.shop.common.view.Page;
 import com.sinse.shop.home.MainPage;
 import com.sinse.shop.member.view.MemberJoin;
+import com.sinse.shop.product.view.ProductDetailPage;
 
 public class AppMain extends JFrame{
 	JPanel p_north; //p_util, p_navi 공존시켜야 하므로..
@@ -35,14 +36,14 @@ public class AppMain extends JFrame{
 	JLabel la_best;
 	JLabel la_cs;
 	
-	Page[] pages;
+	public Page[] pages;
 	
 	public AppMain() {
 		//생성 
 		p_north = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		p_util = new JPanel(new FlowLayout(FlowLayout.RIGHT));//패널 내에서의 우측정렬
-		p_navi = new JPanel();
-		p_container = new JPanel();
+		p_util = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));//패널 내에서의 우측정렬
+		p_navi = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 15));
+		p_container = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 		la_login = new JLabel("Login");
 		la_join = new JLabel("Join");
@@ -58,11 +59,11 @@ public class AppMain extends JFrame{
 		
 		//스타일
 		p_util.setBackground(Color.YELLOW);
-		p_navi.setBackground(Color.PINK);
-		p_container.setBackground(Color.GREEN);
-		p_north.setPreferredSize(new Dimension(Config.SHOPMAIN_WIDTH, Config.UTIL_HEIGHT+Config.NAVI_HEIGHT));
 		p_util.setPreferredSize(new Dimension(Config.SHOPMAIN_WIDTH, Config.UTIL_HEIGHT));
+		p_navi.setBackground(Color.PINK);
 		p_navi.setPreferredSize(new Dimension(Config.SHOPMAIN_WIDTH, Config.NAVI_HEIGHT));
+		p_north.setPreferredSize(new Dimension(Config.SHOPMAIN_WIDTH, Config.UTIL_HEIGHT+Config.NAVI_HEIGHT));
+		p_container.setBackground(Color.GREEN);
 		p_container.setPreferredSize(new Dimension(Config.SHOPMAIN_WIDTH , 810));
 		
 		//조립
@@ -79,6 +80,7 @@ public class AppMain extends JFrame{
 		
 		p_north.add(p_util);
 		p_north.add(p_navi);
+		setLayout(new BorderLayout());
 		add(p_north, BorderLayout.NORTH);
 		add(p_container);
 		
@@ -101,11 +103,12 @@ public class AppMain extends JFrame{
 	//쇼핑몰의 모든 페이지를 생성하여 부착!!
 	public void createPage() {
 		//배열 생성
-		pages=new Page[2]; //본인이 만든 페이지 수로 추후 대체...
+		pages=new Page[3]; //본인이 만든 페이지 수로 추후 대체...
 		
 		//페이지 생성 
 		pages[0]=new MainPage(this);
 		pages[1]=new MemberJoin(this);
+		pages[2]=new ProductDetailPage(this);
 		
 		//모든 페이지를 대상으로 p_container에 부착!!
 		for(int i=0;i<pages.length;i++) {
